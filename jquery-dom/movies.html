@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies App</title>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+    <h1>Movie App</h1>
+    <p></p>
+    <form id="movieForm">
+        <input type="text" placeholder="Title" id="inputTitle">
+        <input type="text" placeholder="Rating (1-10)" id="inputRating">
+        <button id="submitButton" type="submit">Add!</button>
+    </form>
+    <div id="movieHolder"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>
+        $("form").on("submit", function(e) {
+            e.preventDefault();
+            let name = $("#inputTitle").val();
+            let rating = $("#inputRating").val();
+
+            if (name.length < 2) {
+                $("#inputTitle").val('');
+                $("#inputRating").val('');
+                return;
+            }
+
+            if (isNaN(rating) ) {
+                $("#inputTitle").val('');
+                $("#inputRating").val('');
+                return;
+            } else if (rating < 0) {
+                rating = 0;
+            } else if (rating > 10) {
+                rating = 10;
+            }
+            $("#movieHolder").append("<p>"+name+": "+rating+"  <button class=del type=submit>x</button></p>");
+
+            $("#inputTitle").val('');
+            $("#inputRating").val('');
+        });
+
+        $(document).on("click", ".del", function(e) {
+            $(this).parent().remove();
+        });
+    </script>
+</body>
+</html>
